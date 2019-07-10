@@ -4,7 +4,7 @@
       <BaseTitle>{{projectTitle}}</BaseTitle>
       <BaseButton @click="clickAddProcess">追加</BaseButton>
     </div>
-    <BaseDescription :description="projectDescription" />
+    <BaseDescription>{{projectDescription}}</BaseDescription>
   </div>
 </template>
 

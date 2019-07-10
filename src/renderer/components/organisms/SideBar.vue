@@ -9,7 +9,7 @@
     <ProjectList
       :projects="projects"
       @clickProjectIcon="clickProjectIcon"
-      @clickAddProjectIcon="clickAddProjectIcon">
+      @clickAddProject="clickAddProjectIcon">
     </ProjectList>
     <!-- 設定アイコン -->
     <BaseIcon
@@ -50,7 +50,7 @@ export default class SideBar extends Vue {
    * クリックしたプロジェクトアイコンのプロジェクト画面へ遷移
    */
   public clickProjectIcon(project: Project) {
-    this.$router.push({name: "project-page", params: {projectid: String(project._id)}});
+    this.$router.push({name: "project-page", params: {projectId: String(project._id)}});
   }
 
   /**
