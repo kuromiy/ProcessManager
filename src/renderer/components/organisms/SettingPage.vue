@@ -2,9 +2,9 @@
   <div>
     <!-- モーダル -->
     <ExecModal
-      v-if="execModalFlga"
+      v-if="execModalFlag"
       @clickOutsideWindow="closeExecModal"
-      @clickCancell="closeExecModal"
+      @clickCancel="closeExecModal"
       @clickRegist="registExec">
     </ExecModal>
     <!-- 設定画面ヘッダー -->

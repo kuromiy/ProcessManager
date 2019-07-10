@@ -26,7 +26,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   name: "base-table"
 })
 export default class BaseTable extends Vue {
-  @Prop({ type: Array, required: true }) readonly headers: Array<string>;
-  @Prop({ type: Array, required: true }) readonly datas: Array<any>;
+  @Prop({ type: Array, required: true }) readonly headers!: Array<string>;
+  @Prop({ type: Array, required: true }) readonly datas!: Array<any>;
 }
 </script>

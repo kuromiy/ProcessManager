@@ -50,7 +50,7 @@ export default class ProcessModal extends Vue {
   // 実行ID
   private processExecId: any = "";
   // 実行一覧
-  @Prop({ type: Array, required: true }) readonly execs: Array<Exec>;
+  @Prop({ type: Array, required: true }) readonly execs!: Array<Exec>;
 
   /**
    * モーダル外クリックイベント

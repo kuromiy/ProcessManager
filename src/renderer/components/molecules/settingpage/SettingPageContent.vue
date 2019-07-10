@@ -20,7 +20,7 @@ import { Exec } from "../../../../database/models/Exec";
   components: { BaseTable }
 })
 export default class SettingPageContent extends Vue {
-  @Prop({ type: Array, required: true }) readonly execs: Array<Exec>;
+  @Prop({ type: Array, required: true }) readonly execs!: Array<Exec>;
   private headers: Array<string> = [
     "No.", "名前", "パス"
   ];

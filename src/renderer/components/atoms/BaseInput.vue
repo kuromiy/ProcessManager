@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Emit } from "vue-property-decorator";
   name: "base-input"
 })
 export default class BaseInput extends Vue {
-  @Prop(String) readonly value: string;
+  @Prop(String) readonly value!: string;
 
   @Emit("input")
   public updateText(e: any) {

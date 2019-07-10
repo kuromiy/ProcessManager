@@ -23,7 +23,7 @@ import { Project } from "../../../database/models/Project";
   components: { BaseIcon }
 })
 export default class ProjectList extends Vue {
-  @Prop({ type: Array, required: true }) readonly projects: Array<Project>;
+  @Prop({ type: Array, required: true }) readonly projects!: Array<Project>;
 
   @Emit("clickAddProject")
   public clickAddProject() {}

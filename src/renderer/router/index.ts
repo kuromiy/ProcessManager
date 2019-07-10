@@ -11,6 +11,17 @@ export default new Router({
       path: "/",
     },
     {
+      component: require("../components/organisms/ProjectPage.vue").default,
+      name: "project-page",
+      path: "/project/:projectId",
+      props: true,
+    },
+    {
+      component: require("../components/organisms/SettingPage.vue").default,
+      name: "setting-page",
+      path: "/setting",
+    },
+    {
       path: "*",
       redirect: "/",
     },
