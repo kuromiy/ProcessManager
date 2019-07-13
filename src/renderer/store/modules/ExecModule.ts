@@ -22,6 +22,15 @@ class ExecModule extends VuexModule {
     this._execs.push(exec);
   }
 
+  @Mutation
+  public UPDATE_EXEC(exec: Exec) {
+    const fExec: Exec | undefined = this._execs.find((findExec: Exec) => findExec._id === exec._id);
+    if (fExec) {
+      fExec._name = exec._name;
+      fExec._path = exec._path;
+    }
+  }
+
   @Action
   public async initExec() {
     const conn: IFConnection = await DBConnection.instance();
@@ -36,6 +45,15 @@ class ExecModule extends VuexModule {
     const execTable: Table<Exec> = conn.table(Exec);
     const insertExec: Exec = await execTable.insert(exec);
     this.ADD_EXEC(insertExec);
+  }
+
+  @Action
+  public async updateExec(exec: Exec) {
+    const conn: IFConnection = await DBConnection.instance();
+    const execTable: Table<Exec> = conn.table(Exec);
+    await execTable.update({_id: exec._id}, {_name: exec._name, _path: exec._path});
+    this.UPDATE_EXEC(exec);
+
   }
 }
 
