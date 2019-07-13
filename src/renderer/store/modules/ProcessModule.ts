@@ -33,6 +33,13 @@ class ProcessModule extends VuexModule {
     }
   }
 
+  @Mutation
+  public DELETE_PROCESS(process: Process) {
+    this._processes.forEach((vProcess: Process, index: number) => {
+      if (vProcess._id === process._id) this._processes.splice(index, 1);
+    });
+  }
+
   @Action
   public async initProcess() {
     const conn: IFConnection = await DBConnection.instance();
@@ -58,6 +65,14 @@ class ProcessModule extends VuexModule {
       {_name: process._name, _args: process._args, _exec_id: process._exec_id, _project_id: process._project_id},
     );
     this.UPDATE_PROCESS(process);
+  }
+
+  @Action
+  public async deleteProcess(process: Process) {
+    const conn: IFConnection = await DBConnection.instance();
+    const processTable: Table<Process> = conn.table(Process);
+    await processTable.delete({_id: process._id});
+    this.DELETE_PROCESS(process);
   }
 }
 

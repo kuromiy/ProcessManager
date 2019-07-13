@@ -167,7 +167,9 @@ export default class ProjectPage extends Vue {
   /**
    * プロセス削除
    */
-  public deleteProcess(process: Process) {}
+  public deleteProcess(process: Process) {
+    processModule.deleteProcess(process);
+  }
 
   /**
    * プロセスモーダルを閉じる
