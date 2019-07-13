@@ -2,6 +2,7 @@ import { IFConnection, Table } from "typefiledb";
 import { Action, getModule, Module, Mutation, VuexModule } from "vuex-module-decorators";
 import { DBConnection } from "../../../database/DBConnection";
 import { Process } from "../../../database/models/Process";
+import { Project } from "../../../database/models/Project";
 import { store } from "../index";
 
 @Module({dynamic: true, store, name: "processmodule"})
@@ -40,6 +41,13 @@ class ProcessModule extends VuexModule {
     });
   }
 
+  @Mutation
+  public DELETE_PROCESS_BY_PROJECT(project: Project) {
+    this._processes.forEach((vProcess: Process, index: number) => {
+      if (vProcess._project_id === project._id) this._processes.splice(index, 1);
+    });
+  }
+
   @Action
   public async initProcess() {
     const conn: IFConnection = await DBConnection.instance();
@@ -73,6 +81,14 @@ class ProcessModule extends VuexModule {
     const processTable: Table<Process> = conn.table(Process);
     await processTable.delete({_id: process._id});
     this.DELETE_PROCESS(process);
+  }
+
+  @Action
+  public async deleteProcessByProject(project: Project) {
+    const conn: IFConnection = await DBConnection.instance();
+    const processTable: Table<Process> = conn.table(Process);
+    await processTable.delete({_project_id: project._id});
+    this.DELETE_PROCESS_BY_PROJECT(project);
   }
 }
 

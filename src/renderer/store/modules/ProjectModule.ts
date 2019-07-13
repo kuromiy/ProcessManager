@@ -32,6 +32,13 @@ class ProjectModule extends VuexModule {
     }
   }
 
+  @Mutation
+  public DELETE_PROJECT(project: Project) {
+    this._projects.forEach((vProject: Project, index: number) => {
+      if (vProject._id === project._id) this._projects.splice(index, 1);
+    });
+  }
+
   @Action
   public async initProject() {
     console.log("projectModule init");
@@ -56,6 +63,14 @@ class ProjectModule extends VuexModule {
     const projectTable: Table<Project> = conn.table(Project);
     await projectTable.update({_id: project._id}, {_name: project._name, _description: project._description, _directoryPath: project._directoryPath});
     this.UPDATE_PROJECT(project);
+  }
+
+  @Action
+  public async deleteProject(project: Project) {
+    const conn: IFConnection = await DBConnection.instance();
+    const projectTable: Table<Project> = conn.table(Project);
+    await projectTable.delete({_id: project._id});
+    this.DELETE_PROJECT(project);
   }
 }
 
