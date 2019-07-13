@@ -7,6 +7,17 @@
       @clickCancel="closeProcessModal"
       @clickRegist="registProcess"
     />
+    <ProcessModalEdit
+      :pProcessId="processId"
+      :pProcessName="processName"
+      :pProcessArgs="processArgs"
+      :pProcessExecId="processExecId"
+      v-if="processModalEditFlag"
+      :execs="execs"
+      @clickOutsideWindow="closeProcessModalEdit"
+      @clickCancel="closeProcessModalEdit"
+      @clickRegist="updateProcess">
+    </ProcessModalEdit>
     <ProjectModalEdit
       v-if="projectModalEditFlag"
       :pProjectId="projectId"
@@ -26,6 +37,7 @@
     <ProjectPageContent :processes="processes"
       @startProcess="startProcess"
       @endProcess="endProcess"
+      @updateProcess="openProcessModalEdit"
       @deleteProcess="deleteProcess"
     />
   </div>
@@ -34,6 +46,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ProcessModal from "../molecules/modal/ProcessModal.vue";
+import ProcessModalEdit from "../molecules/modal/ProcessModalEdit.vue";
 import ProjectModalEdit from "../molecules/modal/ProjectModalEdit.vue"
 import ProjectPageHeader from "../molecules/projectpage/ProjectPageHeader.vue";
 import ProjectPageContent from "../molecules/projectpage/ProjectPageContent.vue";
@@ -48,7 +61,7 @@ import { Exec } from "../../../database/models/Exec";
 
 @Component({
   name: "project-page",
-  components: { ProjectPageHeader, ProjectPageContent, ProcessModal, ProjectModalEdit }
+  components: { ProjectPageHeader, ProjectPageContent, ProcessModal, ProjectModalEdit, ProcessModalEdit }
 })
 export default class ProjectPage extends Vue {
   @Prop(String) readonly projectId!: string;
@@ -56,6 +69,11 @@ export default class ProjectPage extends Vue {
   private projectName: string = "";
   private pProjectDescription: string = "";
   private pProjectDirectory: string = "";
+
+  private processId: number = 0;
+  private processName: string = "";
+  private processArgs: string = "";
+  private processExecId: number = 0;
 
   /**
    * プロセスモーダルの状態
@@ -66,6 +84,10 @@ export default class ProjectPage extends Vue {
 
   public get projectModalEditFlag() {
     return modalModule.projectModalEdit;
+  }
+
+  public get processModalEditFlag() {
+    return modalModule.processModalEdit;
   }
 
   /**
@@ -182,6 +204,24 @@ export default class ProjectPage extends Vue {
   public updateProject(project: Project) {
     projectModule.updateProject(project);
     modalModule.closeProjectModalEdit();
+  }
+
+  public openProcessModalEdit(process: Process) {
+    this.processId = process._id;
+    this.processName = process._name;
+    this.processArgs = process._args;
+    this.processExecId = process._exec_id;
+    modalModule.openProcessModalEdit();
+  }
+
+  public closeProcessModalEdit() {
+    modalModule.closeProcessModalEdit();
+  }
+
+  public updateProcess(process: Process) {
+    process._project_id = Number.parseInt(this.projectId, 10);
+    processModule.updateProcess(process);
+    modalModule.closeProcessModalEdit();
   }
 }
 </script>

@@ -11,7 +11,7 @@ import { Component, Vue, Prop, Emit } from "vue-property-decorator";
   name: "base-select"
 })
 export default class BaseSelect extends Vue {
-  @Prop(String) readonly value!: string;
+  @Prop() readonly value!: any;
   @Prop({ type: Array, required: true }) readonly opts!: Array<string>;
 
   @Emit("input")

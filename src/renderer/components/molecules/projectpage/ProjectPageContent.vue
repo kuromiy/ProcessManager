@@ -12,7 +12,8 @@
       </td>
       <td class="project-page-content__message">{{getMessage(slotProps.data)}}</td>
       <td>
-        <BaseIcon iconName="×" @click="deleteProcess(slotProps.data)"/>
+        <BaseButton @click="updateProcess(slotProps.data)">編集</BaseButton>
+        <BaseButton @click="deleteProcess(slotProps.data)">削除</BaseButton>
       </td>
     </template>
   </BaseTable>
@@ -60,6 +61,11 @@ export default class ProjectPageContent extends Vue {
    */
   @Emit("endProcess")
   public endProcess(process: Process) {
+    return process;
+  }
+
+  @Emit("updateProcess")
+  public updateProcess(process: Process) {
     return process;
   }
 

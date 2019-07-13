@@ -6,6 +6,7 @@ class ModaulModule extends VuexModule {
   private _projectModal: boolean = false;
   private _projectModalEdit: boolean = false;
   private _processModal: boolean = false;
+  private _processModalEdit: boolean = false;
   private _execModal: boolean = false;
   private _execModalEdit: boolean = false;
 
@@ -19,6 +20,10 @@ class ModaulModule extends VuexModule {
 
   public get processModal() {
     return this._processModal;
+  }
+
+  public get processModalEdit() {
+    return this._processModalEdit;
   }
 
   public get execModal() {
@@ -79,6 +84,16 @@ class ModaulModule extends VuexModule {
     this._projectModalEdit = false;
   }
 
+  @Mutation
+  public OPEN_PROCESS_MODAL_EDIT() {
+    this._processModalEdit = true;
+  }
+
+  @Mutation
+  public CLOSE_PROCESS_MODAL_EDIT() {
+    this._processModalEdit = false;
+  }
+
   @Action
   public async openProjectModal() {
     this.OPEN_PROJECT_MODAL();
@@ -127,6 +142,16 @@ class ModaulModule extends VuexModule {
   @Action
   public async closeProjectModalEdit() {
     this.CLOSE_PROJECT_MODAL_EDIT();
+  }
+
+  @Action
+  public async openProcessModalEdit() {
+    this.OPEN_PROCESS_MODAL_EDIT();
+  }
+
+  @Action
+  public async closeProcessModalEdit() {
+    this.CLOSE_PROCESS_MODAL_EDIT();
   }
 }
 

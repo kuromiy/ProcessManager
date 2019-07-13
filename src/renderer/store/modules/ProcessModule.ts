@@ -22,6 +22,17 @@ class ProcessModule extends VuexModule {
     this._processes.push(process);
   }
 
+  @Mutation
+  public UPDATE_PROCESS(process: Process) {
+    const fProcess: Process | undefined = this._processes.find((findProcess: Process) => findProcess._id === process._id);
+    if (fProcess) {
+      fProcess._name = process._name;
+      fProcess._args = process._args;
+      fProcess._exec_id = process._exec_id;
+      fProcess._project_id = process._project_id;
+    }
+  }
+
   @Action
   public async initProcess() {
     const conn: IFConnection = await DBConnection.instance();
@@ -36,6 +47,17 @@ class ProcessModule extends VuexModule {
     const processTable: Table<Process> = conn.table(Process);
     const insertedProcess: Process = await processTable.insert(process);
     this.ADD_PROCESS(insertedProcess);
+  }
+
+  @Action
+  public async updateProcess(process: Process) {
+    const conn: IFConnection = await DBConnection.instance();
+    const processTable: Table<Process> = conn.table(Process);
+    await processTable.update(
+      {_id: process._id},
+      {_name: process._name, _args: process._args, _exec_id: process._exec_id, _project_id: process._project_id},
+    );
+    this.UPDATE_PROCESS(process);
   }
 }
 
