@@ -23,7 +23,8 @@
     <!-- 設定画面コンテンツ -->
     <SettingPageContent
       :execs="execs"
-      @clickEditButton="openExecModalEdit">
+      @clickEditButton="openExecModalEdit"
+      @clickDeleteButton="deleteExec">
     </SettingPageContent>
   </div>
 </template>
@@ -100,6 +101,10 @@ export default class SettingPage extends Vue {
     this.execName = exec._name;
     this.execPath = exec._path;
     modalModule.openExecModalEdit();
+  }
+
+  public deleteExec(exec: Exec) {
+    execModule.deleteExec(exec);
   }
 }
 </script>

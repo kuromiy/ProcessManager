@@ -8,6 +8,7 @@
       <td>{{slotProps.data._path}}</td>
       <td>
         <BaseButton @click="clickEditButton(slotProps.data)">編集</BaseButton>
+        <BaseButton @click="clickDeleteButton(slotProps.data)">削除</BaseButton>
       </td>
     </template>
   </BaseTable>
@@ -30,6 +31,10 @@ export default class SettingPageContent extends Vue {
   ];
   @Emit("clickEditButton")
   public clickEditButton(exec: Exec) {
+    return exec;
+  }
+  @Emit("clickDeleteButton")
+  public clickDeleteButton(exec: Exec) {
     return exec;
   }
 }

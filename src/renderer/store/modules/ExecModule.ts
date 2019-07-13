@@ -31,6 +31,13 @@ class ExecModule extends VuexModule {
     }
   }
 
+  @Mutation
+  public DELETE_EXEC(exec: Exec) {
+    this._execs.forEach((vExec: Exec, index: number) => {
+      if (vExec._id === exec._id) this._execs.splice(index, 1);
+    });
+  }
+
   @Action
   public async initExec() {
     const conn: IFConnection = await DBConnection.instance();
@@ -53,7 +60,14 @@ class ExecModule extends VuexModule {
     const execTable: Table<Exec> = conn.table(Exec);
     await execTable.update({_id: exec._id}, {_name: exec._name, _path: exec._path});
     this.UPDATE_EXEC(exec);
+  }
 
+  @Action
+  public async deleteExec(exec: Exec) {
+    const conn: IFConnection = await DBConnection.instance();
+    const execTable: Table<Exec> = conn.table(Exec);
+    await execTable.delete({_id: exec._id});
+    this.DELETE_EXEC(exec);
   }
 }
 
