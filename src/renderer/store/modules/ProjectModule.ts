@@ -22,6 +22,16 @@ class ProjectModule extends VuexModule {
     this._projects.push(project);
   }
 
+  @Mutation
+  public UPDATE_PROJECT(project: Project) {
+    const fProject: Project | undefined = this._projects.find((findProject: Project) => findProject._id === project._id);
+    if (fProject) {
+      fProject._name = project._name;
+      fProject._description = project._description;
+      fProject._directoryPath = project._directoryPath;
+    }
+  }
+
   @Action
   public async initProject() {
     console.log("projectModule init");
@@ -38,6 +48,14 @@ class ProjectModule extends VuexModule {
     const projectTable: Table<Project> = conn.table(Project);
     const insertedProject: Project = await projectTable.insert(project);
     this.ADD_PROJECT(insertedProject);
+  }
+
+  @Action
+  public async updateProject(project: Project) {
+    const conn: IFConnection = await DBConnection.instance();
+    const projectTable: Table<Project> = conn.table(Project);
+    await projectTable.update({_id: project._id}, {_name: project._name, _description: project._description, _directoryPath: project._directoryPath});
+    this.UPDATE_PROJECT(project);
   }
 }
 

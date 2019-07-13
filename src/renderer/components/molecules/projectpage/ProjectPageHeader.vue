@@ -2,6 +2,7 @@
   <div class="project-page-header">
     <div class="project-page-header__row">
       <BaseTitle>{{projectTitle}}</BaseTitle>
+      <BaseButton @click="clickEditProject">編集</BaseButton>
       <BaseButton @click="clickAddProcess">追加</BaseButton>
     </div>
     <BaseDescription>{{projectDescription}}</BaseDescription>
@@ -24,6 +25,9 @@ export default class ProjectPageHeader extends Vue {
 
   @Emit("clickAddProcess")
   public clickAddProcess() {}
+
+  @Emit("clickEditProject")
+  public clickEditProject() {}
 }
 </script>
 

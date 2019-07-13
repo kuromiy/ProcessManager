@@ -4,12 +4,17 @@ import { store } from "../index";
 @Module({dynamic: true, store, name: "modalmodule"})
 class ModaulModule extends VuexModule {
   private _projectModal: boolean = false;
+  private _projectModalEdit: boolean = false;
   private _processModal: boolean = false;
   private _execModal: boolean = false;
   private _execModalEdit: boolean = false;
 
   public get projectModal() {
     return this._projectModal;
+  }
+
+  public get projectModalEdit() {
+    return this._projectModalEdit;
   }
 
   public get processModal() {
@@ -64,6 +69,16 @@ class ModaulModule extends VuexModule {
     this._execModalEdit = false;
   }
 
+  @Mutation
+  public OPEN_PROJECT_MODAL_EDIT() {
+    this._projectModalEdit = true;
+  }
+
+  @Mutation
+  public CLOSE_PROJECT_MODAL_EDIT() {
+    this._projectModalEdit = false;
+  }
+
   @Action
   public async openProjectModal() {
     this.OPEN_PROJECT_MODAL();
@@ -102,6 +117,16 @@ class ModaulModule extends VuexModule {
   @Action
   public async closeExecModalEdit() {
     this.CLOSE_EXEC_MODAL_EDIT();
+  }
+
+  @Action
+  public async openProjectModalEdit() {
+    this.OPEN_PROJECT_MODAL_EDIT();
+  }
+
+  @Action
+  public async closeProjectModalEdit() {
+    this.CLOSE_PROJECT_MODAL_EDIT();
   }
 }
 

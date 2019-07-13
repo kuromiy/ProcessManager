@@ -7,10 +7,21 @@
       @clickCancel="closeProcessModal"
       @clickRegist="registProcess"
     />
+    <ProjectModalEdit
+      v-if="projectModalEditFlag"
+      :pProjectId="projectId"
+      :pProjectName="projectName"
+      :pProjectDescription="pProjectDescription"
+      :pProjectDirectory="pProjectDirectory"
+      @clickOutsideWindow="closeProjectModalEdit"
+      @clickCancel="closeProjectModalEdit"
+      @clickRegist="updateProject">
+    </ProjectModalEdit>
     <ProjectPageHeader
       :projectTitle="projectTitle"
       :projectDescription="projectDescription"
       @clickAddProcess="openProcessModal"
+      @clickEditProject="openProjectModalEdit"
     />
     <ProjectPageContent :processes="processes"
       @startProcess="startProcess"
@@ -23,6 +34,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ProcessModal from "../molecules/modal/ProcessModal.vue";
+import ProjectModalEdit from "../molecules/modal/ProjectModalEdit.vue"
 import ProjectPageHeader from "../molecules/projectpage/ProjectPageHeader.vue";
 import ProjectPageContent from "../molecules/projectpage/ProjectPageContent.vue";
 import { Process } from "../../../database/models/Process";
@@ -36,16 +48,24 @@ import { Exec } from "../../../database/models/Exec";
 
 @Component({
   name: "project-page",
-  components: { ProjectPageHeader, ProjectPageContent, ProcessModal }
+  components: { ProjectPageHeader, ProjectPageContent, ProcessModal, ProjectModalEdit }
 })
 export default class ProjectPage extends Vue {
   @Prop(String) readonly projectId!: string;
+
+  private projectName: string = "";
+  private pProjectDescription: string = "";
+  private pProjectDirectory: string = "";
 
   /**
    * プロセスモーダルの状態
    */
   public get processModalFlag() {
     return modalModule.processModal;
+  }
+
+  public get projectModalEditFlag() {
+    return modalModule.projectModalEdit;
   }
 
   /**
@@ -73,6 +93,13 @@ export default class ProjectPage extends Vue {
     const projects: Array<Project> = projectModule.projects;
     const result: Project | undefined = projects.find((project: Project) => project._id === id);
     if (result) return result._description;
+  }
+
+  public get projectDirectory() {
+    const id: number = Number.parseInt(this.projectId, 10);
+    const projects: Array<Project> = projectModule.projects;
+    const result: Project | undefined = projects.find((project: Project) => project._id === id);
+    if (result) return result._directoryPath;
   }
 
   /**
@@ -134,6 +161,27 @@ export default class ProjectPage extends Vue {
     process._project_id = Number.parseInt(this.projectId, 10);
     processModule.addProcess(process);
     modalModule.closeProcessModal();
+  }
+
+  public openProjectModalEdit() {
+    const id: number = Number.parseInt(this.projectId, 10);
+    const projects: Array<Project> = projectModule.projects;
+    const result: Project | undefined = projects.find((project: Project) => project._id === id);
+    if (result) {
+      this.projectName = result._name;
+      this.pProjectDescription = result._description;
+      this.pProjectDirectory = result._directoryPath;
+      modalModule.openProjectModalEdit();
+    }
+  }
+
+  public closeProjectModalEdit() {
+    modalModule.closeProjectModalEdit();
+  }
+
+  public updateProject(project: Project) {
+    projectModule.updateProject(project);
+    modalModule.closeProjectModalEdit();
   }
 }
 </script>
