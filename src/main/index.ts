@@ -70,6 +70,7 @@ ipcMain.on("startExec", (event: Event, arg: {exec: any, args: any, folder: any, 
 ipcMain.on("closeExec", (event: Event, arg: {processid: any}) => {
   const proc: ChildProcess | undefined = processMap.get(arg.processid);
   if (proc) {
+    if (win) win.webContents.send("message", {context: "停止中...", process_id: arg.processid});
     const psPath = path.join(__dirname, "../scripts/script.ps1");
     const pr = spawn("powershell.exe", [psPath, String(proc.pid)]);
     pr.stdout.on("data", (data) => {
