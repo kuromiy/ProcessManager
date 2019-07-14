@@ -7,13 +7,29 @@
       <td>{{slotProps.data._id}}</td>
       <td>{{slotProps.data._name}}</td>
       <td>
-        <BaseButton @click="startProcess(slotProps.data)">起動</BaseButton>
-        <BaseButton @click="endProcess(slotProps.data)">停止</BaseButton>
+        <BaseButton
+          type="success"
+          @click="startProcess(slotProps.data)">
+          起動
+        </BaseButton>
+        <BaseButton
+          type="danger"
+          @click="endProcess(slotProps.data)">
+          停止
+        </BaseButton>
       </td>
       <td class="project-page-content__message">{{getMessage(slotProps.data)}}</td>
       <td>
-        <BaseButton @click="updateProcess(slotProps.data)">編集</BaseButton>
-        <BaseButton @click="deleteProcess(slotProps.data)">削除</BaseButton>
+        <BaseButton
+          type="success"
+          @click="updateProcess(slotProps.data)">
+          編集
+        </BaseButton>
+        <BaseButton
+          type="danger"
+          @click="deleteProcess(slotProps.data)">
+          削除
+        </BaseButton>
       </td>
     </template>
   </BaseTable>

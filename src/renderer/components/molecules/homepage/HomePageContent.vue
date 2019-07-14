@@ -7,7 +7,11 @@
       <td>{{slotProps.data._name}}</td>
       <td>{{slotProps.data._description}}</td>
       <td>
-        <BaseButton @click="deleteProject(slotProps.data)">削除</BaseButton>
+        <BaseButton
+          type="danger"
+          @click="deleteProject(slotProps.data)">
+          削除
+        </BaseButton>
       </td>
     </template>
   </BaseTable>
