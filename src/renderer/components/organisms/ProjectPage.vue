@@ -39,6 +39,7 @@
       @endProcess="endProcess"
       @updateProcess="openProcessModalEdit"
       @deleteProcess="deleteProcess"
+      @clickProcess="moveProcessPage"
     />
   </div>
 </template>
@@ -224,6 +225,10 @@ export default class ProjectPage extends Vue {
     process._project_id = Number.parseInt(this.projectId, 10);
     processModule.updateProcess(process);
     modalModule.closeProcessModalEdit();
+  }
+
+  public moveProcessPage(process: Process) {
+    this.$router.push({name: "process-page", params: {processId: String(process._id)}});
   }
 }
 </script>

@@ -5,7 +5,7 @@
     <!-- slotProps.dataはProcessクラスが格納されている -->
     <template v-slot:default="slotProps">
       <td>{{slotProps.data._id}}</td>
-      <td>{{slotProps.data._name}}</td>
+      <td><div @click="clickProcess(slotProps.data)">{{slotProps.data._name}}</div></td>
       <td>
         <BaseButton
           type="success"
@@ -90,6 +90,11 @@ export default class ProjectPageContent extends Vue {
    */
   @Emit("deleteProcess")
   public deleteProcess(process: Process) {
+    return process;
+  }
+
+  @Emit("clickProcess")
+  public clickProcess(process: Process) {
     return process;
   }
 }

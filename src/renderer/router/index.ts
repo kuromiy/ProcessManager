@@ -17,6 +17,12 @@ export default new Router({
       props: true,
     },
     {
+      component: require("../components/organisms/ProcessPage.vue").default,
+      name: "process-page",
+      path: "/process/:processId",
+      props: true,
+    },
+    {
       component: require("../components/organisms/SettingPage.vue").default,
       name: "setting-page",
       path: "/setting",
