@@ -2,7 +2,13 @@
   <button
     class="base-button"
     type="button"
-    :class="[type ? 'base-button--' + type : '']"
+    :disabled="isDisabled"
+    :class="[
+      type ? 'base-button--' + type : '',
+      {
+        'is-disabled': isDisabled
+      }
+    ]"
     @click="click">
     <slot></slot>
   </button>
@@ -16,6 +22,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 })
 export default class BaseButton extends Vue {
   @Prop({ type: String, default: "default"}) readonly type!: string;
+  @Prop({ type: Boolean, default: false}) readonly isDisabled!: boolean;
   @Emit("click")
   public click() {}
 }
@@ -73,6 +80,11 @@ $danger-color: #b91e1e;
     color: #fff;
     }
   }
+}
+
+.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 </style>
 

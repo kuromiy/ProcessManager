@@ -14,6 +14,7 @@
         </BaseButton>
         <BaseButton
           type="danger"
+          :isDisabled="tmpFlg"
           @click="endProcess(slotProps.data)">
           停止
         </BaseButton>
@@ -53,6 +54,7 @@ export default class ProjectPageContent extends Vue {
   private headers: Array<string> = [
     "No.", "プロセス名", "操作", "メッセージ", "削除"
   ];
+  private tmpFlg: boolean = true;
 
   /**
    * 最新プロセスメッセージを返す
