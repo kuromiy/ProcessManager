@@ -7,4 +7,5 @@ export class Process {
   @Column public _exec_id!: number;
   @Column public _args!: string;
   @Column public _project_id!: number;
+  public _status!: boolean;
 }

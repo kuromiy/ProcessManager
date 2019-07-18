@@ -53,6 +53,8 @@ export default class ProcessPage extends Vue {
       folder: project._directoryPath,
       processid: process._id
     };
+    processModule.startProcess(process._id);
+    console.log(process._id);
     ipcRenderer.send("startExec", args);
   }
 
@@ -61,6 +63,8 @@ export default class ProcessPage extends Vue {
     const arg = {
       processid: pId
     };
+    processModule.closeProcess(pId);
+    console.log(pId);
     ipcRenderer.send("closeExec", arg);
   }
 }

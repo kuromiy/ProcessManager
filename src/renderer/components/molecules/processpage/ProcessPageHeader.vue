@@ -1,16 +1,6 @@
 <template>
   <div style="display: flex;">
     <BaseTitle>{{title}}</BaseTitle>
-    <BaseButton
-      @click="startProcess"
-      type="success">
-      起動
-    </BaseButton>
-    <BaseButton
-      @click="closeProcess"
-      type="danger">
-      停止
-    </BaseButton>
   </div>
 </template>
 
@@ -18,6 +8,7 @@
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import BaseTitle from "../../atoms/BaseTitle.vue";
 import BaseButton from "../../atoms/BaseButton.vue";
+import { Process } from "../../../../database/models/Process";
 
 @Component({
   name: "process-page-header",

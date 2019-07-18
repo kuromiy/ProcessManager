@@ -9,12 +9,13 @@
       <td>
         <BaseButton
           type="success"
+          :isDisabled="getStatus(slotProps.data)"
           @click="startProcess(slotProps.data)">
           起動
         </BaseButton>
         <BaseButton
           type="danger"
-          :isDisabled="tmpFlg"
+          :isDisabled="getNotStatus(slotProps.data)"
           @click="endProcess(slotProps.data)">
           停止
         </BaseButton>
@@ -23,11 +24,13 @@
       <td>
         <BaseButton
           type="success"
+          :isDisabled="getStatus(slotProps.data)"
           @click="updateProcess(slotProps.data)">
           編集
         </BaseButton>
         <BaseButton
           type="danger"
+          :isDisabled="getStatus(slotProps.data)"
           @click="deleteProcess(slotProps.data)">
           削除
         </BaseButton>
@@ -55,6 +58,14 @@ export default class ProjectPageContent extends Vue {
     "No.", "プロセス名", "操作", "メッセージ", "削除"
   ];
   private tmpFlg: boolean = true;
+
+  public getStatus(process: Process) {
+    return process._status;
+  }
+
+  public getNotStatus(process: Process) {
+    return !process._status;
+  }
 
   /**
    * 最新プロセスメッセージを返す

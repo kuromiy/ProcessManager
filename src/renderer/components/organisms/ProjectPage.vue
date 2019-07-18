@@ -152,6 +152,8 @@ export default class ProjectPage extends Vue {
       folder: project._directoryPath,
       processid: process._id
     };
+    console.log(process._id);
+    processModule.startProcess(process._id);
     ipcRenderer.send("startExec", args);
   }
 
@@ -162,6 +164,8 @@ export default class ProjectPage extends Vue {
     const arg = {
       processid: process._id
     };
+    console.log(process._id);
+    processModule.closeProcess(process._id);
     ipcRenderer.send("closeExec", arg);
   }
 
@@ -184,6 +188,7 @@ export default class ProjectPage extends Vue {
    */
   public registProcess(process: Process) {
     process._project_id = Number.parseInt(this.projectId, 10);
+    process._status = false;
     processModule.addProcess(process);
     modalModule.closeProcessModal();
   }

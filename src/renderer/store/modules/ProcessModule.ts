@@ -48,6 +48,18 @@ class ProcessModule extends VuexModule {
     });
   }
 
+  @Mutation
+  public START_PROCESS(processid: number) {
+    const proc: Process | undefined = this._processes.find((process: Process) => process._id === processid);
+    if (proc) proc._status = true;
+  }
+
+  @Mutation
+  public CLOSE_PROCESS(processid: number) {
+    const proc: Process | undefined = this._processes.find((process: Process) => process._id === processid);
+    if (proc) proc._status = false;
+  }
+
   @Action
   public async initProcess() {
     const conn: IFConnection = await DBConnection.instance();
@@ -89,6 +101,18 @@ class ProcessModule extends VuexModule {
     const processTable: Table<Process> = conn.table(Process);
     await processTable.delete({_project_id: project._id});
     this.DELETE_PROCESS_BY_PROJECT(project);
+  }
+
+  @Action
+  public async startProcess(processid: number) {
+    console.log("vuex startprocess");
+    this.START_PROCESS(processid);
+  }
+
+  @Action
+  public async closeProcess(processid: number) {
+    console.log("vuex closeprocess");
+    this.CLOSE_PROCESS(processid);
   }
 }
 

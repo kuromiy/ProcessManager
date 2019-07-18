@@ -2,6 +2,7 @@
 
 <# 指定したidからプロセスを取得する #>
 function getProcessById($id) {
+  # TODO $allprocessから指定された$idを取り出すようにしたい。
   return Get-WmiObject -Class Win32_Process -Filter "ProcessId = $id"
 }
 
