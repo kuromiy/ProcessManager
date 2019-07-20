@@ -2,19 +2,21 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
   mode: "development",
   entry: path.join(__dirname, "../src/renderer/app.ts"),
   output: {
     filename: "renderer.js",
-    path: path.join(__dirname, "../dist")
+    path: path.join(__dirname, "../build")
   },
   target: "electron-renderer",
   node: {
     __dirname: false,
     __filename: false
   },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {

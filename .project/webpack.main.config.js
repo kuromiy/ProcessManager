@@ -1,11 +1,12 @@
 const path = require("path");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
   mode: "development",
   entry: path.join(__dirname, "../src/main/index.ts"),
   output: {
     filename: "index.js",
-    path: path.join(__dirname, "../dist")
+    path: path.join(__dirname, "../build")
   },
   target: "electron-main",
   node: {
@@ -24,6 +25,7 @@ module.exports = {
       }
     ]
   },
+  externals: [nodeExternals()],
   resolve: {
     extensions: [".ts", ".js"]
   }

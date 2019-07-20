@@ -1,13 +1,14 @@
 {
   "name": "processmanager",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "process-manager",
+  "main": "./build/index.js",
   "scripts": {
     "build:main": "npx webpack --config .project/webpack.main.config.js",
     "build:renderer": "npx webpack --config .project/webpack.renderer.config.js",
     "build": "npm run build:renderer&&npm run build:main",
-    "dev": "npm run build&&electron ./dist/index.js"
+    "dev": "npm run build&&electron ./build/index.js",
+    "pack": "node build-win.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,10 @@
   "homepage": "https://github.com/kuromiy/ProcessManager#readme",
   "devDependencies": {
     "@types/node": "^12.6.2",
+    "asar": "^2.0.1",
     "css-loader": "^3.0.0",
     "electron": "^5.0.6",
+    "electron-builder": "^21.0.15",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.12.0",
@@ -35,18 +38,19 @@
     "url-loader": "^2.0.1",
     "vue-class-component": "^7.1.0",
     "vue-loader": "^15.7.0",
-    "vue-property-decorator": "^8.2.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
-    "vuex-module-decorators": "^0.9.9",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13",
     "typefiledb": "^0.1.2",
     "vue": "^2.6.10",
+    "vue-property-decorator": "^8.2.1",
     "vue-router": "^3.0.7",
-    "vuex": "^3.1.1"
+    "vuex": "^3.1.1",
+    "vuex-module-decorators": "^0.9.9"
   }
 }

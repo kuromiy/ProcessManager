@@ -72,7 +72,9 @@ ipcMain.on("closeExec", (event: Event, arg: {processid: any}) => {
   if (proc) {
     if (win) win.webContents.send("message", {context: "停止中...", process_id: arg.processid});
     const psPath = path.join(__dirname, "../scripts/script.ps1");
-    const pr = spawn("powershell.exe", [psPath, String(proc.pid)]);
+    // const psPath = path.join(__dirname, "../scripts/script2.ps1");
+    // const pr = spawn("powershell.exe", [psPath, String(proc.pid)]);
+    const pr = spawn("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Unrestricted", psPath, String(proc.pid)]);
     pr.stdout.on("data", (data) => {
       console.log(`${data}`);
     });
