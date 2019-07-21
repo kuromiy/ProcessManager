@@ -1,5 +1,5 @@
 <template>
-  <input type="text" :value="value" @input="updateText" />
+  <input class="base-input" type="text" :value="value" @input="updateText" />
 </template>
 
 <script lang="ts">
@@ -17,3 +17,17 @@ export default class BaseInput extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.base-input {
+  border-radius: 3px;
+  padding: 6px;
+  border: 1px solid #313131;
+
+  &:focus {
+    outline: 0;
+    border: 1px solid orange;
+  }
+}
+</style>
+

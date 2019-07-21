@@ -74,6 +74,7 @@ export default class SideBar extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: 1px solid #313131;
 
   overflow: hidden;
 }

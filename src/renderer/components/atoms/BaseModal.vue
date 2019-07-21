@@ -37,8 +37,9 @@ export default class BaseModal extends Vue {
 
   &__window {
     background: #ffffff;
-    border: groove 3px #313131;
+    border: groove 1px #313131;
     border-radius: 5px;
+    padding: 5px;
 
     &__header {
       font-size: 18px;
@@ -50,6 +51,7 @@ export default class BaseModal extends Vue {
 
     &__footer {
       display: flex;
+      justify-content: center;
     }
   }
 }
